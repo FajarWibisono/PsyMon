@@ -59,7 +59,7 @@ with col2:
     st.image("images/psymon_morganHousel.jpg", caption="Morgan Housel", width=126)
 
 with col3:
-    st.image("images/psymon_Jimware.jpg", caption="Jim Ware", width=126)
+    st.image("images/psymon_jimware.jpg", caption="Jim Ware", width=126)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. STATE DAN INISIALISASI

@@ -48,6 +48,11 @@ st.markdown(
     """
 )
 
+# Menambahkan file uploader untuk setiap gambar
+uploaded_file1 = st.file_uploader("Upload Gambar Addison Bell", type=["jpg", "png"])
+uploaded_file2 = st.file_uploader("Upload Gambar Morgan Housel", type=["jpg", "png"])
+uploaded_file3 = st.file_uploader("Upload Gambar Jim Ware", type=["jpg", "png"])
+
 # Membuat kolom untuk menampung gambar secara horizontal
 col1, col2, col3 = st.columns(3)
 

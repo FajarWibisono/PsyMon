@@ -44,7 +44,7 @@ st.title("Psychology of Money")
 st.markdown(
     """
     ### Selamat Datang di Asisten Pengetahuan Psikologi Uang.
-    ChatBot ini akan membantu Anda memahami lebih dalam Psikologi Uang dari sudut pandang Addison Bell, Morgan Housel, dan Jim Ware. ***_Melalui apps ini Anda seperti memiliki 3 mentor_*** kawakan yang senantiasa siap menjawab pertanyaan berbagai pertanyaan Anda  tentang psikologi uang dan investasi. Cara terbaik memanfaatkan ChatBot ini adalah dengan membeli dan membaca 3 bukunya, agar Anda dapat mengajukan pertanyaan spesifik tingkat lanjutan terkait subject matternya.**SEMOGA BERMANFAAT!**
+    ChatBot ini akan membantu Anda memahami lebih dalam Psikologi Uang dari sudut pandang Addison Bell, Morgan Housel, dan Jim Ware. **Melalui apps ini Anda seperti memiliki 3 mentor kawakan** yang senantiasa siap menjawab pertanyaan berbagai pertanyaan Anda  tentang psikologi uang dan investasi. Cara terbaik memanfaatkan ChatBot ini adalah dengan membeli dan membaca 3 bukunya, agar Anda dapat mengajukan pertanyaan spesifik tingkat lanjutan terkait subject matternya. **SEMOGA BERMANFAAT!**
     """
 )
 

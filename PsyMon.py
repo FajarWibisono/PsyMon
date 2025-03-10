@@ -76,7 +76,7 @@ if 'chain' not in st.session_state:
 # ─────────────────────────────────────────────────────────────────────────────
 # Prompt ini akan memaksa jawaban selalu dalam Bahasa Indonesia.
 PROMPT_INDONESIA = """\
-Gunakan informasi konteks berikut untuk menjawab pertanyaan pengguna dalam bahasa Indonesia yang baik dan terstruktur.
+Gunakan informasi konteks berikut untuk menjawab pertanyaan pengguna selalu dalam bahasa Indonesia yang baik dan terstruktur.
 Selalu berikan jawaban terbaik yang dapat kamu berikan dalam bahasa indonesia.
 
 Konteks: {context}
@@ -112,7 +112,7 @@ def initialize_rag():
         # 4.3 Embedding Berbahasa Indonesia
         # Ganti sesuai preferensi, misal "indobenchmark/indobert-base-p1", dsb.
         embeddings = HuggingFaceEmbeddings(
-            model_name="LazarusNLP/all-indo-e5-small-v4",
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
             model_kwargs={'device': 'cpu'}  
         )
 

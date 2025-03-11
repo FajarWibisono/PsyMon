@@ -172,7 +172,7 @@ def reset_chat_and_memory():
     if st.session_state.chain and hasattr(st.session_state.chain, 'memory'):
         st.session_state.chain.memory.clear()
     st.success("Chat dan memory berhasil direset!")
-    st.experimental_rerun()
+    st.rerun()  # Using st.rerun() instead of st.experimental_rerun()
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 6. INISIALISASI SISTEM

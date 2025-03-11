@@ -112,7 +112,7 @@ def initialize_rag():
         # 4.3 Embedding Berbahasa Indonesia
         # Ganti sesuai preferensi, misal "indobenchmark/indobert-base-p1", dsb.
         embeddings = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            model_name="LazarusNLP/all-indo-e5-small-v4",
             model_kwargs={'device': 'cpu'}  
         )
 

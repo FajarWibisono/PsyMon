@@ -1,4 +1,4 @@
-﻿import streamlit as st
+import streamlit as st
 import os
 
 # pip install streamlit langchain huggingface_hub sentence-transformers faiss-cpu
@@ -34,6 +34,18 @@ st.markdown(
         .chat-message { padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; }
         .user-message { background-color: #f0f2f6; }
         .bot-message { background-color: #e8f0fe; }
+        .reset-button {
+            background-color: #ff4b4b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.3rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .reset-button:hover {
+            background-color: #ff0000;
+        }
     </style>
     """,
     unsafe_allow_html=True
@@ -68,7 +80,7 @@ if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 if 'vector_store' not in st.session_state:
     st.session_state.vector_store = None
-if 'chain' not in st.session_state:  
+if 'chain' not in st.session_state:
     st.session_state.chain = None
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -113,7 +125,7 @@ def initialize_rag():
         # Ganti sesuai preferensi, misal "indobenchmark/indobert-base-p1", dsb.
         embeddings = HuggingFaceEmbeddings(
             model_name="LazarusNLP/all-indo-e5-small-v4",
-            model_kwargs={'device': 'cpu'}  
+            model_kwargs={'device': 'cpu'}
         )
 
         # 4.4 Membuat Vector Store FAISS
@@ -140,7 +152,7 @@ def initialize_rag():
             memory=memory,
             return_source_documents=True,
             combine_docs_chain_kwargs={
-                'prompt': INDO_PROMPT_TEMPLATE,  
+                'prompt': INDO_PROMPT_TEMPLATE,
                 'output_key': 'answer'
             }
         )
@@ -152,22 +164,33 @@ def initialize_rag():
         return None
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 5. INISIALISASI SISTEM
+# 5. FUNGSI RESET CHAT DAN MEMORY
+# ─────────────────────────────────────────────────────────────────────────────
+def reset_chat_and_memory():
+    """Reset chat history and conversation memory"""
+    st.session_state.chat_history = []
+    if st.session_state.chain and hasattr(st.session_state.chain, 'memory'):
+        st.session_state.chain.memory.clear()
+    st.success("Chat dan memory berhasil direset!")
+    st.experimental_rerun()
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. INISIALISASI SISTEM
 # ─────────────────────────────────────────────────────────────────────────────
 if st.session_state.chain is None:
     with st.spinner("Memuat sistem..."):
         st.session_state.chain = initialize_rag()
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 6. ANTARMUKA CHAT
+# 7. ANTARMUKA CHAT
 # ─────────────────────────────────────────────────────────────────────────────
 if st.session_state.chain:
-    # 6.1 Tampilkan riwayat chat
+    # 7.1 Tampilkan riwayat chat
     for message in st.session_state.chat_history:
         with st.chat_message(message["role"]):
             st.write(message["content"])
 
-    # 6.2 Chat Input
+    # 7.2 Chat Input
     prompt = st.chat_input("✍️tuliskan pertanyaan Anda tentang psikologi uang dan investasi di sini")
     if prompt:
         # Tambahkan pertanyaan user ke riwayat chat
@@ -175,7 +198,7 @@ if st.session_state.chain:
         with st.chat_message("user"):
             st.write(prompt)
 
-        # 6.3 Generate Response
+        # 7.3 Generate Response
         with st.chat_message("assistant"):
             with st.spinner("Mencari jawaban..."):
                 try:
@@ -192,7 +215,7 @@ if st.session_state.chain:
                     st.session_state.chat_history.append({"role": "assistant", "content": error_msg})
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 7. FOOTER & DISCLAIMER
+# 8. FOOTER & DISCLAIMER
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown(
     """
@@ -203,3 +226,11 @@ st.markdown(
     - Mohon verifikasi informasi penting dengan sumber terpercaya.
     """
 )
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 9. TOMBOL RESET CHAT DAN MEMORY
+# ─────────────────────────────────────────────────────────────────────────────
+col1, col2, col3 = st.columns([1, 1, 1])
+with col2:
+    if st.button("🔄 Reset Chat dan Memory", key="reset_button", type="primary", use_container_width=True):
+        reset_chat_and_memory()
